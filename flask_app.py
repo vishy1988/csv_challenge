@@ -1,9 +1,36 @@
 from flask import *
+import csv
 
 import pandas as pd
 app = Flask(__name__)
 @app.route("/tables")
 def show_tables():
+     with open('daily.csv', 'w') as csvfile:
+     filewriter = csv.writer(csvfile, delimiter=',',
+                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
+     filewriter.writerow(['id', 'date','value'])
+     filewriter.writerow(['C1','1/1/17','31'])
+     filewriter.writerow(['C1','1/2/17','35'])
+     filewriter.writerow(['C1','1/3/17','32'])
+     filewriter.writerow(['C1','1/6/17','36'])
+     filewriter.writerow(['C1','1/7/17','35'])
+     filewriter.writerow(['C1','1/8/17','34'])
+     filewriter.writerow(['C1','1/10/17','33'])
+     filewriter.writerow(['C2','1/1/17','225'])
+     filewriter.writerow(['C2','1/2/17','223'])
+     filewriter.writerow(['C2','1/3/17','223'])
+     filewriter.writerow(['C2','1/6/17','220'])
+     filewriter.writerow(['C2','1/7/17','222'])
+     filewriter.writerow(['C2','1/8/17','225'])
+     filewriter.writerow(['C2','1/10/17','224'])
+     filewriter.writerow(['C3','1/8/17','340'])
+     with open('companies.csv', 'w') as csvfile:
+     filewriter = csv.writer(csvfile, delimiter=',',
+                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
+     filewriter.writerow(['id', 'name'])
+     filewriter.writerow(['C1','Company 1'])
+     filewriter.writerow(['C2','Company 2'])
+     filewriter.writerow(['C3','Company 3'])
      df1 = pd.read_csv('daily.csv')
      df2 = pd.read_csv('companies.csv')
      df1['date']= pd.to_datetime(df1['date'], format='%m/%d/%y')
@@ -21,4 +48,4 @@ def show_tables():
      titles = [ 'Company_data'])
 
 if __name__ == "__main__":
-    app.run()
+     app.run()
